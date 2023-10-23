@@ -1,0 +1,17 @@
+:root {
+    --color-brand-1: rgb(32, 185, 32);
+    --color-error: rgb(221, 44, 44);
+}
+
+button {
+    cursor: pointer;
+}
+
+input:focus {
+    outline: none;
+    border-color: black;
+}
+
+.inputError {
+    border: 1px solid var(--color-error) !important;
+}

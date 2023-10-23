@@ -1,0 +1,19 @@
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: rgb(26, 25, 25);
+
+    input {
+        height: 2.5rem;
+        padding-left: 0.5rem;
+        width: 100%;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+    .error {
+        color: var(--color-error);
+    }
+}
