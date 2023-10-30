@@ -2,6 +2,6 @@ import axios from "axios";
 
 
 export const api = axios.create({
-    baseURL: "https://todolist-api-mu.vercel.app/",
+    baseURL: "http://localhost:3333/",
     timeout: 5000,
 })

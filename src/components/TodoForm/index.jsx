@@ -1,17 +1,21 @@
 import { Input } from "./Input"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { TodoFormSchema } from "./TodoFormSchema"
+import { todoFormSchema } from "./todoFormSchema"
 import styles from "./style.module.scss"
+import { useContext } from "react"
+import { TodoContext } from "../../providers/TodoContext"
 
 
 export const TodoForm = () => {
-    const { register, handleSubmit, formState:{errors}} = useForm({
-        resolver: zodResolver(TodoFormSchema)
+    const { createTodo } = useContext(TodoContext)
+    const { register, handleSubmit, reset, formState:{errors}} = useForm({
+        resolver: zodResolver(todoFormSchema)
     })
 
     const submit = (formData) => {
-
+        createTodo(formData)
+        reset()
     }
     
     return (

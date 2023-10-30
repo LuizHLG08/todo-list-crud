@@ -1,4 +1,5 @@
 @import "./global.scss";
+@import "./modals.scss";
 
 * {
     margin: 0;
@@ -15,4 +16,5 @@ body {
     flex-direction: column;
     gap: 3rem;
     align-items: center;
+    padding-bottom: 2rem;
 }

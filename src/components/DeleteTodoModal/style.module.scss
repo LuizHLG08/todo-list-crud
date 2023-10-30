@@ -1,0 +1,27 @@
+.close {
+    border: none;
+    color: white;
+    background-color: transparent;
+}
+.modalContent {
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: white;
+    align-items: center;
+
+    h2 {
+        text-align: center;
+    }
+
+    button {
+        background-color: var(--color-error);
+        border: none;
+        height: 2.5rem;
+        border-radius: 4px;
+        color: white;
+        width: 100%;
+    }
+}
