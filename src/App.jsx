@@ -1,8 +1,8 @@
 import { HomePage } from "./pages/HomePage"
 import { TodoProvider } from "./providers/TodoContext"
 import "./styles/index.scss"
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 
 function App() {
