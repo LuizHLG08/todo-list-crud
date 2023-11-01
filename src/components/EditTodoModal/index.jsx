@@ -19,7 +19,8 @@ export const EditTodoModal = () => {
     })
 
     const submit = (formData) => {
-        editTodo(formData)
+        editTodo.mutate(formData)
+        setEditingTodo(null)
     }
 
 

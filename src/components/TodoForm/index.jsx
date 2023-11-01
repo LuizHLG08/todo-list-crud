@@ -14,7 +14,7 @@ export const TodoForm = () => {
     })
 
     const submit = (formData) => {
-        createTodo(formData)
+        createTodo.mutate(formData)
         reset()
     }
     

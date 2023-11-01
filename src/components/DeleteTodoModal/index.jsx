@@ -7,6 +7,11 @@ export const DeleteTodoModal = () => {
 
     const { setDeletingTodo, deleteTodo } = useContext(TodoContext)
 
+    const submit = () => {
+        deleteTodo.mutate()
+        setDeletingTodo(null)
+    }
+
      return (
         <div className="modalOverlay">
             <div className="modalContainer">
@@ -16,7 +21,7 @@ export const DeleteTodoModal = () => {
                 </div>
                 <div className={styles.modalContent}>
                     <h2>Tem certeza que deseja apagar o item?</h2>
-                    <button onClick={() => deleteTodo()}>Apagar</button>
+                    <button onClick={submit}>Apagar</button>
                 </div>
             </div>
         </div>

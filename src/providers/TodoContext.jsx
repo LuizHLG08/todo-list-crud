@@ -1,65 +1,67 @@
 import { createContext, useEffect, useState } from "react"
 import { api } from "../services/api"
 import { toast } from "react-toastify"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
 export const TodoContext = createContext({})
 
 export const TodoProvider = ({ children }) => {
-    const [todoList, setTodoList] = useState([])
+    
     const [editingTodo, setEditingTodo] = useState(null)
     const [deletingTodo, setDeletingTodo] = useState(null)
 
-    useEffect(() => {
-        const getTodoList = async () => {
-            try {
-                const { data } = await api.get("/tasks")
-                setTodoList(data)
-            } catch (error) {
-                toast.error("Ops! Algo deu errado")
-            }
-        }
-        getTodoList()
-    }, [])
+    const queryClient = useQueryClient()
 
-    const createTodo = async (formData) => {
-        try {
-            const { data } = await api.post("/tasks", formData)
-            setTodoList([...todoList, data])
+    const revalidate = () => {
+        queryClient.invalidateQueries({queryKey: ["todos"]})
+    }
+
+    const { data: todoList } = useQuery({
+        queryKey: ["todos"],
+        queryFn: async () => {
+            const { data } = await api.get("/tasks")
+            return data
+        }
+    })
+
+    const createTodo = useMutation({
+        mutationFn: async (formData) => {
+            return await api.post("/tasks", formData)
+        },
+        onSuccess: () => {
+            revalidate()
             toast.success("Tarefa criada com sucesso!")
-        } catch (error) {
+        },
+        onError: () => {
             toast.error("Não foi possível criar tarefa!")
         }
-    }
+    })
 
-    const editTodo = async (formData) => {
-        try {
-            const { data } = await api.put(`/tasks/${editingTodo.id}`, formData)
-            const newTodoList = todoList.map(todo => {
-                if (todo.id === editingTodo.id) {
-                    return data
-                } else {
-                    return todo
-                }
-            })
-            setTodoList(newTodoList)
-            setEditingTodo(null)
+    const editTodo = useMutation({
+        mutationFn: async (formData) => {
+            return await api.put(`/tasks/${editingTodo.id}`, formData)
+        },
+        onSuccess: () => {
+            revalidate()
             toast.success("Tarefa editada com sucesso!")
-        } catch (error) {
+        },
+        onError: () => {
             toast.error("Não foi possível editar tarefa!")
         }
-    }
+    })
 
-    const deleteTodo = async () => {
-        try {
-            await api.delete(`/tasks/${deletingTodo}`)
-            const newTodoList = todoList.filter(todo => todo.id !== deletingTodo)
-            setTodoList(newTodoList)
-            setDeletingTodo(null)
+    const deleteTodo = useMutation({
+        mutationFn: async () => {
+            return await api.delete(`/tasks/${deletingTodo}`)
+        },
+        onSuccess: () => {
+            revalidate()
             toast.success("Tarefa removida com sucesso!")
-        } catch (error) {
+        },
+        onError: () => {
             toast.error("Não foi possível remover tarefa!")
         }
-    }
+    })
 
 
     return (

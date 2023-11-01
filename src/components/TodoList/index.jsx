@@ -9,7 +9,7 @@ export const TodoList = () => {
 
     return (
         <ul className={styles.list}>
-            {todoList.map(todo => (
+            {todoList?.map(todo => (
                 <TodoCard key={todo.id} todo={todo} />
             ))}
         </ul>
